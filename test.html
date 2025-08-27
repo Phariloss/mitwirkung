@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bezirk IV räumt auf - Gemeinsam für eine saubere Stadt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            --glass-bg: rgba(30, 41, 59, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--success-color);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            min-width: 120px;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--warning-color);
+            display: block;
+        }
+
+        .countdown-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Forms */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group select option {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Contact info */
+        .contact-info {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success/Error messages */
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        /* Legal section styles */
+        .legal-section {
+            margin-bottom: 2rem;
+        }
+
+        .legal-section h4 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-section h5 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-section ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        .legal-section li {
+            margin-bottom: 0.5rem;
+        }
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(15, 23, 42, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 100px;
+                padding: 1.5rem 1rem;
+            }
+
+            .form-container,
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Bezirk IV Clean-Up</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" onclick="showPage('home')">Start</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('about')">Über uns</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('action')">Aktion</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('register')">Anmelden</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('contact')">Kontakt</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('legal')">Rechtliches</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Bezirk IV räumt auf</h1>
+                    <p>Gemeinsam für eine saubere Stadt - Ein Jugendprojekt mit Herz und Engagement</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                        <a href="#" class="btn btn-primary" onclick="showPage('register')">Jetzt mitmachen</a>
+                        <a href="#" class="btn btn-secondary" onclick="showPage('about')">Mehr erfahren</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Unsere Erfolge bisher</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Teilnehmer</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Kg Müll gesammelt</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Aktionen</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Stadtteil</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Nächste Aktion: 5. September 2025</h2>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Tage</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Stunden</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minuten</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Sekunden</span>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#" class="btn btn-primary" onclick="showPage('register')">Jetzt anmelden</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Über unser Projekt</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Unsere Mission</h3>
+                        <p>Die Initiative "Bezirk IV räumt auf" wurde von engagierten Jugendlichen ins Leben gerufen, die Verantwortung für ihren Lebensraum übernehmen wollen. Als Teil des Mitwirkungsprojekts 2024/2025 setzen wir ein starkes Zeichen für Bürgerbeteiligung.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Nachhaltigkeit im Fokus</h3>
+                        <p>Wir glauben an langfristige Veränderungen. Durch regelmäßige Aktionen und Aufklärungsarbeit schaffen wir ein Bewusstsein für Umweltschutz direkt vor der Haustür.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Gemeinschaft stärken</h3>
+                        <p>Unser gemeinsames Ziel: Ein sauberer, lebenswerter und attraktiver Stadtbezirk, auf den wir alle stolz sein können. Zusammen sind wir stärker!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Warum Aufräumen wichtig ist</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Umweltschutz vor Ort</h3>
+                        <p>Achtlos weggeworfener Müll beeinträchtigt nicht nur die Lebensqualität, sondern auch unsere Umwelt und das städtische Ökosystem.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Gesundheit & Wohlbefinden</h3>
+                        <p>Sauberkeit schützt uns vor Krankheitserregern und schafft ein angenehmes Umfeld für alle.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Zusammenhalt fördern</h3>
+                        <p>Durch gemeinsames Anpacken übernehmen wir Verantwortung und stärken den Zusammenhalt in der Nachbarschaft.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Action Page -->
+    <div id="action" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">So läuft die Müllsammelaktion ab</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>1. Begrüßung & Einweisung</h3>
+                        <p>Begrüßung und Einweisung in Sicherheitsmaßnahmen und Ausrüstung. Zangen, Handschuhe und Müllsäcke werden gestellt.</p>
+                    </div>
+                    <div class="card">
+                        <h3>2. Team-Einteilung</h3>
+                        <p>Aufteilung in Teams und Zuweisung von Sammelgebieten im Bezirk für effektives Arbeiten.</p>
+                    </div>
+                    <div class="card">
+                        <h3>3. Sammeln & Sortieren</h3>
+                        <p>Gemeinsames Sammeln mit besonderem Augenmerk auf Mülltrennung für umweltgerechte Entsorgung.</p>
+                    </div>
+                    <div class="card">
+                        <h3>4. Entsorgung & Abschluss</h3>
+                        <p>Umweltgerechte Entsorgung der gesammelten Abfälle und gemeinsame Abschlussrunde.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 3rem;">
+                    <h3>Wichtige Informationen:</h3>
+                    <ul style="color: var(--text-secondary); line-height: 1.8; margin-top: 1rem;">
+                        <li>Treffpunkt: Bezirkspark (Haupteingang)</li>
+                        <li>Zeit: 10:00 - 14:00 Uhr</li>
+                        <li>Alle Materialien werden gestellt</li>
+                        <li>Getränke und Snacks für Teilnehmer</li>
+                        <li>Bei schlechtem Wetter Verschiebung möglich</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Anmeldung zur Aktion</h2>
+                <div class="form-container">
+                    <div class="message success-message" id="registrationSuccess">
+                        Anmeldung erfolgreich gesendet! Du erhältst bald eine Bestätigung.
+                    </div>
+                    <div class="message error-message" id="registrationError">
+                        Fehler beim Senden der Anmeldung. Bitte versuche es erneut oder kontaktiere uns direkt.
+                    </div>
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label for="reg_name">Vollständiger Name *</label>
+                            <input type="text" id="reg_name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg_email">E-Mail Adresse *</label>
+                            <input type="email" id="reg_email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg_age">Alter *</label>
+                            <input type="number" id="reg_age" name="age" min="12" max="30" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg_experience">Hast du schon einmal an ähnlichen Aktionen teilgenommen? *</label>
+                            <select id="reg_experience" name="experience" required>
+                                <option value="">Bitte auswählen</option>
+                                <option value="ja-mehrmals">Ja, mehrmals</option>
+                                <option value="ja-einmal">Ja, einmal</option>
+                                <option value="nein">Nein, das ist mein erstes Mal</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg_motivation">Was motiviert dich zur Teilnahme? (optional)</label>
+                            <textarea id="reg_motivation" name="motivation" rows="4" placeholder="Erzähle uns kurz, warum du mitmachen möchtest..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" id="registrationSubmit" style="width: 100%; margin-top: 1rem;">
+                            Jetzt anmelden
+                            <span class="loading-spinner" id="registrationSpinner"></span>
+                        </button>
+                    </form>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+                    <p>* Pflichtfelder</p>
+                    <p>Nach der Anmeldung erhältst du alle weiteren Informationen zur Aktion per E-Mail.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Legal Page -->
+    <div id="legal" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Rechtliches</h2>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
+                    <button class="btn btn-secondary" onclick="showLegalSection('impressum')">Impressum</button>
+                    <button class="btn btn-secondary" onclick="showLegalSection('agb')">AGB</button>
+                    <button class="btn btn-secondary" onclick="showLegalSection('datenschutz')">Datenschutz</button>
+                </div>
+
+                <!-- Impressum Section -->
+                <div id="impressum" class="legal-section">
+                    <div class="card">
+                        <h3>Impressum</h3>
+                        
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Anbieter</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.8;">
+                                <strong>Aaron Janssen</strong><br>
+                                c/o IP-Management #6448<br>
+                                Ludwig-Erhard-Str. 18<br>
+                                20459 Hamburg
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Vertreten durch</h4>
+                            <p style="color: var(--text-secondary);">Aaron Janssen (Geschäftsführer)</p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Kontakt</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.8;">
+                                <strong>E-Mail:</strong> <a href="mailto:mrumpe510@gmail.com" style="color: var(--primary-color);">mrumpe510@gmail.com</a><br>
+                                <strong>Website:</strong> <a href="https://byte-host.de/" style="color: var(--primary-color);" target="_blank">https://byte-host.de/</a>
+                            </p>
+                        </div>
+
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Verantwortlich für den Inhalt</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.8;">
+                                Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>
+                                Aaron Janssen<br>
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--danger-color); margin-bottom: 1rem;">Haftungsausschluss</h4>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">Haftung für Inhalte</h5>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                    Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+                                </p>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                    Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+                                </p>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">Haftung für Links</h5>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                    Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.
+                                </p>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                    Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h5 style="color: var(--text-primary); margin-bottom: 0.5rem;">Urheberrecht</h5>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                    Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+                                </p>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                                    Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGB Section -->
+                <div id="agb" class="legal-section" style="display: none;">
+                    <div class="card">
+                        <h3>Allgemeine Geschäftsbedingungen (AGB)</h3>
+                        
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">§ 1 Geltungsbereich</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Diese Allgemeinen Geschäftsbedingungen gelten für alle Dienstleistungen, die im Rahmen der Initiative "Bezirk IV räumt auf" erbracht werden. Dies umfasst insbesondere die Teilnahme an Aufräumaktionen und die Nutzung der Website.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">§ 2 Teilnahme an Aktionen</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                <strong>2.1</strong> Die Teilnahme an den Aufräumaktionen ist freiwillig und erfolgt auf eigene Verantwortung.
+                            </p>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                <strong>2.2</strong> Teilnehmer müssen sich vor der Aktion ordnungsgemäß anmelden.
+                            </p>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                <strong>2.3</strong> Die Organisatoren behalten sich vor, Teilnehmer bei unangemessenem Verhalten von der Aktion auszuschließen.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">§ 3 Sicherheit und Haftung</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                <strong>3.1</strong> Die Teilnahme erfolgt auf eigene Gefahr. Die Organisatoren übernehmen keine Haftung für Schäden, die während der Aktion entstehen.
+                            </p>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                <strong>3.2</strong> Teilnehmer sind verpflichtet, den Sicherheitsanweisungen der Organisatoren Folge zu leisten.
+                            </p>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                <strong>3.3</strong> Bei minderjährigen Teilnehmern ist eine Einverständniserklärung der Erziehungsberechtigten erforderlich.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">§ 4 Datenschutz</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Die Erhebung und Verarbeitung personenbezogener Daten erfolgt ausschließlich zum Zweck der Organisation und Durchführung der Aufräumaktionen. Weitere Informationen finden Sie in unserer Datenschutzerklärung.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">§ 5 Änderungen</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Die Organisatoren behalten sich vor, diese AGB jederzeit zu ändern. Teilnehmer werden über Änderungen rechtzeitig informiert.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">§ 6 Schlussbestimmungen</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Es gilt deutsches Recht.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datenschutz Section -->
+                <div id="datenschutz" class="legal-section" style="display: none;">
+                    <div class="card">
+                        <h3>Datenschutzerklärung</h3>
+                        
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">1. Verantwortlicher</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist Aaron Janssen (siehe Impressum).
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">2. Erhebung personenbezogener Daten</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                Wir erheben personenbezogene Daten nur, wenn Sie uns diese freiwillig zur Verfügung stellen, insbesondere bei:
+                            </p>
+                            <ul style="color: var(--text-secondary); line-height: 1.6; margin-left: 2rem;">
+                                <li>Anmeldung zu Aufräumaktionen</li>
+                                <li>Kontaktaufnahme über unser Kontaktformular</li>
+                                <li>Nutzung der Website (technische Daten)</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">3. Zweck der Datenverarbeitung</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Ihre Daten werden ausschließlich verwendet für:
+                            </p>
+                            <ul style="color: var(--text-secondary); line-height: 1.6; margin-left: 2rem;">
+                                <li>Organisation und Durchführung der Aufräumaktionen</li>
+                                <li>Kommunikation im Rahmen der Initiative</li>
+                                <li>Beantwortung von Anfragen</li>
+                                <li>Bereitstellung der Website-Funktionen</li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">4. Rechtsgrundlage</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) bzw. Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">5. Weitergabe von Daten</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Eine Weitergabe Ihrer personenbezogenen Daten an Dritte findet nicht statt, es sei denn, dies ist zur Vertragserfüllung erforderlich oder Sie haben ausdrücklich eingewilligt.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">6. Speicherdauer</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Ihre Daten werden nur so lange gespeichert, wie dies für die Erfüllung der genannten Zwecke erforderlich ist oder gesetzliche Aufbewahrungsfristen bestehen.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">7. Ihre Rechte</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                                Sie haben folgende Rechte bezüglich Ihrer personenbezogenen Daten:
+                            </p>
+                            <ul style="color: var(--text-secondary); line-height: 1.6; margin-left: 2rem;">
+                                <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+                                <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+                                <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+                                <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+                                <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+                                <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+                                <li>Recht auf Widerruf der Einwilligung (Art. 7 DSGVO)</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 style="color: var(--accent-color); margin-bottom: 1rem;">8. Kontakt</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">
+                                Bei Fragen zum Datenschutz oder zur Ausübung Ihrer Rechte wenden Sie sich bitte an: 
+                                <a href="mailto:lusorsphil@gmail.com" style="color: var(--primary-color);">lusorsphil@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Kontakt</h2>
+                
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--accent-color);">Schreib uns eine Nachricht</h3>
+                    <div class="message success-message" id="contactSuccess">
+                        Nachricht erfolgreich gesendet! Wir melden uns bald bei dir.
+                    </div>
+                    <div class="message error-message" id="contactError">
+                        Fehler beim Senden der Nachricht. Bitte versuche es erneut.
+                    </div>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contact_name">Name *</label>
+                            <input type="text" id="contact_name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact_email">E-Mail *</label>
+                            <input type="email" id="contact_email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact_subject">Betreff</label>
+                            <input type="text" id="contact_subject" name="subject" placeholder="Worum geht es?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact_message">Nachricht *</label>
+                            <textarea id="contact_message" name="message" rows="5" required placeholder="Deine Nachricht..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" id="contactSubmit" style="width: 100%;">
+                            Nachricht senden
+                            <span class="loading-spinner" id="contactSpinner"></span>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1.5rem;">Alternative Kontaktmöglichkeiten:</h3>
+                    
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <strong>E-Mail:</strong><br>
+                            <a href="mailto:lusorsphil@gmail.com" style="color: var(--primary-color);">lusorsphil@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <strong>Social Media:</strong><br>
+                            @MitwirkungBezirkIV
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <strong>Vor Ort:</strong><br>
+                            Jeden zweiten Samstag im Monat am Infostand im Bezirkspark
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // EmailJS Configuration - WICHTIGE KORREKTUR
+        // Du musst diese mit deinen echten EmailJS-Daten ersetzen:
+        const EMAILJS_CONFIG = {
+            publicKey: "Un5z3aTmmA4JgERYP", // Dein Public Key
+            serviceId: "EssenRäumtAufBZ4CoffeCor",   // Dein Service ID
+            registrationTemplateId: "template_tp2s0sj", // Template für Anmeldungen
+            contactTemplateId: "template_qq2aqjh"       // Template für Kontakt (KORRIGIERT)
+        };
+
+        // EmailJS initialisieren
+        emailjs.init(EMAILJS_CONFIG.publicKey);
+
+        // Legal section navigation
+        function showLegalSection(sectionId) {
+            // Hide all legal sections
+            document.querySelectorAll('.legal-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Update button states
+            document.querySelectorAll('#legal .btn').forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
+            });
+            event.target.classList.remove('btn-secondary');
+            event.target.classList.add('btn-primary');
+            
+            // Scroll to section
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            const hamburger = document.querySelector('.hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const targetDate = new Date('September 5, 2025 10:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            } else {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+            }
+        }
+
+        // Email sending functions - KORRIGIERT
+        function sendRegistration(formData) {
+            return emailjs.send(
+                EMAILJS_CONFIG.serviceId,
+                EMAILJS_CONFIG.registrationTemplateId,
+                {
+                    to_email: "lusorsphil@gmail.com",
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    age: formData.age,
+                    experience: formData.experience,
+                    motivation: formData.motivation || "Keine Angabe",
+                    reply_to: formData.email
+                }
+            );
+        }
+
+        function sendContactMessage(formData) {
+            return emailjs.send(
+                EMAILJS_CONFIG.serviceId,
+                EMAILJS_CONFIG.contactTemplateId,
+                {
+                    to_email: "lusorsphil@gmail.com",
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    subject: formData.subject || "Kontaktanfrage",
+                    message: formData.message,
+                    reply_to: formData.email
+                }
+            );
+        }
+
+        // Registration form handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationForm = document.getElementById('registrationForm');
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = document.getElementById('registrationSubmit');
+                    const spinner = document.getElementById('registrationSpinner');
+                    const successMsg = document.getElementById('registrationSuccess');
+                    const errorMsg = document.getElementById('registrationError');
+                    
+                    // Reset messages
+                    successMsg.style.display = 'none';
+                    errorMsg.style.display = 'none';
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    spinner.style.display = 'inline-block';
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('reg_name').value,
+                        email: document.getElementById('reg_email').value,
+                        age: document.getElementById('reg_age').value,
+                        experience: document.getElementById('reg_experience').value,
+                        motivation: document.getElementById('reg_motivation').value
+                    };
+                    
+                    try {
+                        await sendRegistration(formData);
+                        successMsg.style.display = 'block';
+                        registrationForm.reset();
+                        successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } catch (error) {
+                        console.error('Email sending failed:', error);
+                        errorMsg.style.display = 'block';
+                        errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } finally {
+                        // Reset loading state
+                        submitBtn.disabled = false;
+                        spinner.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Contact form handler
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = document.getElementById('contactSubmit');
+                    const spinner = document.getElementById('contactSpinner');
+                    const successMsg = document.getElementById('contactSuccess');
+                    const errorMsg = document.getElementById('contactError');
+                    
+                    // Reset messages
+                    successMsg.style.display = 'none';
+                    errorMsg.style.display = 'none';
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    spinner.style.display = 'inline-block';
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('contact_name').value,
+                        email: document.getElementById('contact_email').value,
+                        subject: document.getElementById('contact_subject').value,
+                        message: document.getElementById('contact_message').value
+                    };
+                    
+                    try {
+                        await sendContactMessage(formData);
+                        successMsg.style.display = 'block';
+                        contactForm.reset();
+                        successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } catch (error) {
+                        console.error('Email sending failed:', error);
+                        errorMsg.style.display = 'block';
+                        errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } finally {
+                        // Reset loading state
+                        submitBtn.disabled = false;
+                        spinner.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Initialize countdown
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    const navMenu = document.querySelector('.nav-menu');
+                    const hamburger = document.querySelector('.hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
